@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Babes, With All My Love</title>
+  <meta name="description" content="A birthday surprise made with love." />
+  <style>
+    :root {
+      --bg: #fff7f8;
+      --card: #ffffff;
+      --text: #33272a;
+      --muted: #7c6f73;
+      --accent: #ff6b9a;
+      --accent-dark: #d94f7e;
+      --soft: #ffe1eb;
+      --gold: #f6b73c;
+      --shadow: 0 20px 60px rgba(255, 107, 154, 0.18);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 210, 225, 0.9), transparent 35%),
+        radial-gradient(circle at top right, rgba(255, 236, 176, 0.7), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(rgba(255, 107, 154, 0.2) 1px, transparent 1px),
+        radial-gradient(rgba(246, 183, 60, 0.18) 1px, transparent 1px);
+      background-size: 36px 36px, 54px 54px;
+      background-position: 0 0, 15px 20px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      margin: 16px 0 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(51, 39, 42, 0.08);
+      backdrop-filter: blur(14px);
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .nav a {
+      white-space: nowrap;
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover {
+      background: var(--soft);
+      color: var(--accent-dark);
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 44px;
+      align-items: center;
+      padding: 64px 0 40px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--accent-dark);
+      border: 1px solid rgba(255, 107, 154, 0.22);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 12px 32px rgba(255, 107, 154, 0.12);
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.2rem, 8vw, 7.6rem);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      margin: 24px 0;
+    }
+
+    .gradient-text {
+      background: linear-gradient(120deg, var(--accent), #ff9369, var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #ff8b6b);
+      box-shadow: 0 16px 35px rgba(255, 107, 154, 0.3);
+    }
+
+    .btn-secondary {
+      color: var(--accent-dark);
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(255, 107, 154, 0.22);
+    }
+
+    .hero-card {
+      position: relative;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.64);
+      border-radius: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow);
+      transform: rotate(1deg);
+    }
+
+    .photo-frame {
+      min-height: 540px;
+      border-radius: 30px;
+      background:
+        linear-gradient(160deg, rgba(255, 107, 154, 0.18), rgba(246, 183, 60, 0.2)),
+        url("images/main-photo.jpg") center/cover;
+      display: flex;
+      align-items: end;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .photo-note {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.76);
+      border-radius: 24px;
+      padding: 18px;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .photo-note strong {
+      display: block;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 2rem;
+      animation: float 5s ease-in-out infinite;
+      filter: drop-shadow(0 10px 10px rgba(255, 107, 154, 0.2));
+    }
+
+    .heart-1 { top: -18px; left: 18%; animation-delay: 0s; }
+    .heart-2 { top: 18%; right: -10px; animation-delay: 1.2s; }
+    .heart-3 { bottom: 12%; left: -14px; animation-delay: 2.1s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-6deg); }
+      50% { transform: translateY(-18px) rotate(8deg); }
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 32px;
+    }
+
+    .kicker {
+      color: var(--accent-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 900;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.2rem, 5vw, 4.3rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      margin-bottom: 14px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .time-card, .card {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 16px 45px rgba(51, 39, 42, 0.08);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(14px);
+    }
+
+    .time-card {
+      text-align: center;
+    }
+
+    .time-card span {
+      display: block;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 950;
+      color: var(--accent-dark);
+      letter-spacing: -0.06em;
+    }
+
+    .time-card small {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .letter {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: clamp(24px, 5vw, 52px);
+      position: relative;
+    }
+
+    .letter::before {
+      content: "💌";
+      position: absolute;
+      top: -22px;
+      left: 32px;
+      font-size: 2.2rem;
+    }
+
+    .letter p {
+      margin-bottom: 18px;
+      color: #51454a;
+      font-size: 1.08rem;
+    }
+
+    .letter .signature {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--accent-dark);
+      font-size: 1.45rem;
+      margin-top: 26px;
+    }
+
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .reason {
+      min-height: 146px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease;
+    }
+
+    .reason:hover {
+      transform: translateY(-5px) rotate(-0.4deg);
+    }
+
+    .reason-number {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      background: var(--soft);
+      color: var(--accent-dark);
+      border-radius: 50%;
+      font-weight: 950;
+      margin-bottom: 14px;
+    }
+
+    .reason p {
+      color: #574a4f;
+      font-weight: 650;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .gallery-card {
+      min-height: 290px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 18px 45px rgba(51, 39, 42, 0.1);
+      background: var(--soft);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .future-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .future-card {
+      min-height: 180px;
+    }
+
+    .future-card .emoji {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+
+    .future-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .future-card p {
+      color: var(--muted);
+    }
+
+    .surprise {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .surprise-message {
+      display: none;
+      margin-top: 24px;
+      padding: 28px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255, 107, 154, 0.15), rgba(246, 183, 60, 0.18));
+      border: 1px solid rgba(255, 107, 154, 0.18);
+    }
+
+    .surprise-message.show {
+      display: block;
+      animation: pop 0.45s ease;
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.94) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .footer {
+      padding: 42px 0 56px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .footer strong {
+      color: var(--accent-dark);
+    }
+
+    .music-control {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 12px 30px rgba(51, 39, 42, 0.12);
+      cursor: pointer;
+      font-size: 1.25rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .confetti {
+      position: fixed;
+      top: -12px;
+      width: 10px;
+      height: 18px;
+      border-radius: 4px;
+      opacity: 0.9;
+      animation: confettiFall linear forwards;
+      z-index: 999;
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translateY(105vh) rotate(720deg);
+        opacity: 0.8;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 48px;
+      }
+
+      .hero-card {
+        transform: none;
+      }
+
+      .photo-frame {
+        min-height: 440px;
+      }
+
+      .countdown,
+      .reasons-grid,
+      .future-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 580px) {
+      .page {
+        width: min(100% - 22px, 1120px);
+      }
+
+      .nav {
+        top: 8px;
+      }
+
+      .nav-inner {
+        justify-content: start;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 42px 0 24px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .photo-frame {
+        min-height: 360px;
+      }
+
+      section {
+        padding: 54px 0;
+      }
+
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .time-card,
+      .card {
+        border-radius: 22px;
+        padding: 18px;
+      }
+
+      .reasons-grid,
+      .future-list,
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-card {
+        min-height: 330px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    HOW TO PERSONALISE THIS WEBSITE
+    1. Create a folder called images beside this index.html file.
+    2. Add your photos and rename them:
+       main-photo.jpg, memory-1.jpg, memory-2.jpg, memory-3.jpg, memory-4.jpg
+    3. Edit the letter and the 17 reasons below.
+    4. Upload everything to GitHub and turn on GitHub Pages.
+  -->
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#home">Home</a>
+      <a href="#countdown">Countdown</a>
+      <a href="#letter">Letter</a>
+      <a href="#reasons">17 Reasons</a>
+      <a href="#memories">Memories</a>
+      <a href="#surprise">Surprise</a>
+    </div>
+  </nav>
+
+  <main id="home" class="page">
+    <section class="hero">
+      <div>
+        <div class="pill">🎂 17 May · Made by Varshana</div>
+        <h1>Happy Birthday, <span class="gradient-text">Babes</span></h1>
+        <p class="hero-copy">
+          This little corner of the internet was made just for you — filled with love,
+          memories, tiny surprises, and all the words I sometimes struggle to say out loud.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#letter">Read your letter 💌</a>
+          <a class="btn btn-secondary" href="#reasons">Why I love you ✨</a>
+        </div>
+      </div>
+
+      <div class="hero-card" aria-label="Main birthday photo">
+        <span class="floating-heart heart-1">💗</span>
+        <span class="floating-heart heart-2">✨</span>
+        <span class="floating-heart heart-3">💕</span>
+        <div class="photo-frame">
+          <div class="photo-note">
+            <strong>My favourite human.</strong>
+            <span>Replace this with your favourite photo of him or both of you.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section id="countdown">
+    <div class="page">
+      <div class="section-title">
+        <div class="kicker">Counting down</div>
+        <h2>Until your special day</h2>
+        <p id="birthdayStatus">The countdown to 17 May is officially on.</p>
+      </div>
+
+      <div class="countdown" aria-label="Countdown to birthday">
+        <div class="time-card"><span id="days">00</span><small>Days</small></div>
+        <div class="time-card"><span id="hours">00</span><small>Hours</small></div>
+        <div class="time-card"><span id="minutes">00</span><small>Minutes</small></div>
+        <div class="time-card"><span id="seconds">00</span><small>Seconds</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="letter">
+    <div class="page">
+      <div class="section-title">
+        <div class="kicker">From my heart</div>
+        <h2>A little letter for you</h2>
+        <p>Because you deserve words that stay.</p>
+      </div>
+
+      <article class="card letter">
+        <p>Dear Babes,</p>
+        <p>
+          Happy birthday to the person who makes my world feel warmer, safer, and happier.
+          I hope today reminds you of how loved you are — not only by everyone around you,
+          but especially by me.
+        </p>
+        <p>
+          I love the way you make ordinary moments feel special. I love the way you make me laugh,
+          the way you care, the way you try, and the way your presence can calm my whole heart.
+        </p>
+        <p>
+          This website is only a tiny piece of what I feel for you, but I hope every section makes you smile.
+          You are my favourite person, my comfort, my happiness, and my forever troublemaker.
+        </p>
+        <p>
+          On your birthday, I just want you to know this: I am so grateful that you exist,
+          and even more grateful that I get to love you.
+        </p>
+        <p class="signature">With all my love,<br />Varshana ❤️</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="reasons">
+    <div class="page">
+      <div class="section-title">
+        <div class="kicker">17 reasons</div>
+        <h2>Why I love you</h2>
+        <p>One reason for every beautiful number in your birthday date.</p>
+      </div>
+
+      <div class="reasons-grid">
+        <div class="card reason"><div><div class="reason-number">1</div><p>You make me feel safe.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">2</div><p>You make me laugh even when I do not want to smile.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">3</div><p>You care in ways that mean more than you realise.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">4</div><p>You make ordinary days feel special.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">5</div><p>You are my favourite notification.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">6</div><p>You make me feel loved in your own way.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">7</div><p>You are strong, even on days you do not see it.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">8</div><p>You have a heart I am lucky to know.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">9</div><p>You are my calm and my chaos at the same time.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">10</div><p>You make me proud.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">11</div><p>You make love feel easy and real.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">12</div><p>You are cute even when you are annoying.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">13</div><p>You understand parts of me that I cannot always explain.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">14</div><p>You make the future feel exciting.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">15</div><p>You are my comfort person.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">16</div><p>You make me believe in us every day.</p></div></div>
+        <div class="card reason"><div><div class="reason-number">17</div><p>Because you are you — and that is more than enough.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="memories">
+    <div class="page">
+      <div class="section-title">
+        <div class="kicker">Our little gallery</div>
+        <h2>Memories I love</h2>
+        <p>Add your favourite photos here. The captions can be sweet, funny, or full of inside jokes.</p>
+      </div>
+
+      <div class="gallery">
+        <div class="gallery-card">
+          <img src="images/memory-1.jpg" alt="A favourite memory" onerror="this.style.display='none'" />
+          <div class="gallery-caption">This day made me happy.</div>
+        </div>
+        <div class="gallery-card">
+          <img src="images/memory-2.jpg" alt="A favourite memory" onerror="this.style.display='none'" />
+          <div class="gallery-caption">You being unintentionally cute.</div>
+        </div>
+        <div class="gallery-card">
+          <img src="images/memory-3.jpg" alt="A favourite memory" onerror="this.style.display='none'" />
+          <div class="gallery-caption">One of my favourite us moments.</div>
+        </div>
+        <div class="gallery-card">
+          <img src="images/memory-4.jpg" alt="A favourite memory" onerror="this.style.display='none'" />
+          <div class="gallery-caption">A photo I will always love.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="future">
+    <div class="page">
+      <div class="section-title">
+        <div class="kicker">Someday with you</div>
+        <h2>Things I want with us</h2>
+        <p>A few tiny dreams I hope we get to collect together.</p>
+      </div>
+
+      <div class="future-list">
+        <div class="card future-card">
+          <div class="emoji">🌍</div>
+          <h3>More little adventures</h3>
+          <p>Places to go, food to try, and memories to make together.</p>
+        </div>
+        <div class="card future-card">
+          <div class="emoji">🏡</div>
+          <h3>A peaceful future</h3>
+          <p>A life where we keep choosing each other, gently and honestly.</p>
+        </div>
+        <div class="card future-card">
+          <div class="emoji">🍿</div>
+          <h3>Many cosy nights</h3>
+          <p>Movies, snacks, teasing each other, and being happy doing nothing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="surprise">
+    <div class="page">
+      <div class="card surprise">
+        <div class="kicker">One more thing</div>
+        <h2>Click only if you love me</h2>
+        <p style="color: var(--muted); margin-bottom: 22px;">This button is legally binding. Maybe. Probably. Definitely.</p>
+        <button class="btn btn-primary" id="surpriseBtn">I love you, Varshana ❤️</button>
+        <div class="surprise-message" id="surpriseMessage">
+          <h3 style="font-size: 1.8rem; margin-bottom: 10px;">Too late. You are stuck with me forever 😌</h3>
+          <p style="color: var(--muted);">
+            Happy birthday, Babes. I love you more than this website can ever explain.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="page">
+      Made with love by <strong>Varshana</strong> for <strong>Babes</strong> · 17 May ❤️
+    </div>
+  </footer>
+
+  <!-- Optional music. Add a file called song.mp3 beside index.html, then uncomment the audio line below. -->
+  <!-- <audio id="song" src="song.mp3" loop></audio> -->
+  <button class="music-control" id="musicBtn" title="Music / confetti button">🎉</button>
+
+  <script>
+    const birthday = new Date("2026-05-17T00:00:00");
+
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const statusEl = document.getElementById("birthdayStatus");
+
+    function pad(number) {
+      return String(number).padStart(2, "0");
+    }
+
+    function updateCountdown() {
+      const now = new Date();
+      const distance = birthday - now;
+
+      if (distance <= 0) {
+        daysEl.textContent = "00";
+        hoursEl.textContent = "00";
+        minutesEl.textContent = "00";
+        secondsEl.textContent = "00";
+        statusEl.textContent = "It is birthday time. Today is all about Babes ❤️";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      daysEl.textContent = pad(days);
+      hoursEl.textContent = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      secondsEl.textContent = pad(seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    const surpriseBtn = document.getElementById("surpriseBtn");
+    const surpriseMessage = document.getElementById("surpriseMessage");
+    const musicBtn = document.getElementById("musicBtn");
+    const song = document.getElementById("song");
+
+    function makeConfetti() {
+      const colors = ["#ff6b9a", "#f6b73c", "#ff8b6b", "#ffd1dc", "#ffffff"];
+      for (let i = 0; i < 70; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = 2.4 + Math.random() * 2.6 + "s";
+        piece.style.animationDelay = Math.random() * 0.25 + "s";
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 5600);
+      }
+    }
+
+    surpriseBtn.addEventListener("click", () => {
+      surpriseMessage.classList.add("show");
+      makeConfetti();
+    });
+
+    musicBtn.addEventListener("click", () => {
+      makeConfetti();
+      if (!song) return;
+
+      if (song.paused) {
+        song.play();
+        musicBtn.textContent = "🔊";
+      } else {
+        song.pause();
+        musicBtn.textContent = "🎵";
+      }
+    });
+  </script>
+</body>
+</html>
